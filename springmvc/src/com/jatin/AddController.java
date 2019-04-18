@@ -42,10 +42,11 @@ public class AddController {
 //		mv.addObject("result", );
 		return "index.jsp";
 	}
+	
 	@RequestMapping("/get")
 	public ModelAndView get(HttpServletRequest request,HttpServletResponse response)
 	{
-		int n=Integer.parseInt(request.getParameter("s"));
+		int n=Integer.parseInt(request.getParameter("x"));
 		Alien jatin=new Alien();
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
@@ -63,8 +64,9 @@ public class AddController {
 	@RequestMapping("/update")
 	public String update(HttpServletRequest request,HttpServletResponse reponse)
 	{
-		int n=Integer.parseInt(request.getParameter("s"));
-		int n1=Integer.parseInt(request.getParameter("s1"));
+		int n=Integer.parseInt(request.getParameter("x"));
+		String n1=request.getParameter("x1");
+		String n2=request.getParameter("x2");
 		Alien jatin=new Alien();
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
@@ -72,7 +74,8 @@ public class AddController {
 		Session s=sf.openSession();
 		Transaction tx=s.beginTransaction();
 		jatin=(Alien)s.get(Alien.class, n);
-		jatin.setAemp(n1);
+		jatin.setAname(n1);
+		jatin.setAlast(n2);
 		s.update(jatin);
 		tx.commit();
 		return "index.jsp";
@@ -82,7 +85,7 @@ public class AddController {
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request,HttpServletResponse response)
 	{
-		int n=Integer.parseInt(request.getParameter("s"));
+		int n=Integer.parseInt(request.getParameter("x"));
 		Alien jatin=new Alien();
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();

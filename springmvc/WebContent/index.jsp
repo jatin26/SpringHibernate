@@ -33,13 +33,13 @@
 <table>
 <thead>
 <tr>
-<th scope="col">ID</th>
+<th scope="col">EMP-ID</th>
 <th scope="col">GET-DATA</th> 
 </tr>
 </thead>
 <tbody>
 <tr>
-<th scope="col"><input type="number" name="s"/></th>
+<th scope="col"><input type="number" name="x"/></th>
 <th scope="col"><input type="submit" value="GET">
 
 </tr>
@@ -51,15 +51,17 @@
 <table>
 <thead>
 <tr>
-<th scope="col">ID</th>
-<th scope="col">EMP</th>
+<th scope="col">EMP-ID</th>
+<th scope="col">FIRST-NAME</th>
+<th scope="col">LAST-NAME</th>
 <th scope="col">UPDATE-DATA</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th scope="col"><input type="number" name="s"></th>
-<th scope="col"><input type="number" name="s1"></th>
+<th scope="col"><input type="number" name="x"></th>
+<th scope="col"><input type="text" name="x1"></th>
+<th scope="col"><input type="text" name="x2"></th>
 <th scope="col"><input type="submit" value="UPDATE" onclick="update()"></th>
 </tr>
 </tbody>
@@ -70,13 +72,13 @@
 <table>
 <thead>
 <tr>
-<th scope="col">ID</th>
+<th scope="col">EMP-ID</th>
 <th scope="col">DELETE-DATA</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th scope="col"><input type="number" name="s"></th>
+<th scope="col"><input type="number" name="x"></th>
 <th scope="col"><input type="submit" value="DELETE" onclick="delete1()"></th>
 </tr>
 </tbody>

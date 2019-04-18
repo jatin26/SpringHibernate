@@ -10,9 +10,7 @@ import javax.persistence.Id;
 public class Alien {
 
 	@Id
-	@GeneratedValue
-	private int aid;
-	 
+	
 	@Column
 	private int aemp;
 	
@@ -22,14 +20,7 @@ public class Alien {
 	@Column
 	private String alast;
 
-	public int getAid() {
-		return aid;
-	}
-
-	public void setAid(int aid) {
-		this.aid = aid;
-	}
-
+	
 	public int getAemp() {
 		return aemp;
 	}
@@ -56,9 +47,10 @@ public class Alien {
 
 	@Override
 	public String toString() {
-		return "Alien [aid=" + aid + ", aemp=" + aemp + ", aname=" + aname + ", alast=" + alast + "]";
+		return "Alien [aemp=" + aemp + ", aname=" + aname + ", alast=" + alast + "]";
 	}
 
+	
 	
 	
 	
