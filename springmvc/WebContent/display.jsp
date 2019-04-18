@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-result is : ${result}
+result is : ${result}<br>
+result 2nd is:	${result1}<br>
+result 3nd is:	${result2}<br>
+
 </body>
 </html>

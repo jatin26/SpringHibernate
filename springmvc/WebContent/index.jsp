@@ -84,6 +84,21 @@
 </tbody>
 </table>
 </form>
+<hr>
+<form action="getalldata">
+<table>
+<thead>
+<tr>
+<th scope="col">GET-ALL-RECORDS</th>
+<tr>
+</thead>
+<tbody>
+<tr>
+<th scope="col"><input type="submit" value="ALL-RECORDS"/>
+</tr>
+</tbody>
+</table>
+</form>
 <script>
 function insert()
 {

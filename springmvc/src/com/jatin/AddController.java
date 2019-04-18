@@ -1,5 +1,11 @@
 package com.jatin;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Synchronization;
@@ -53,6 +59,7 @@ public class AddController {
 		SessionFactory sf=con.buildSessionFactory(reg);
 		Session s=sf.openSession();
 		Transaction tx=s.beginTransaction();
+		//jatin=(Alien)s.createQuery("select * from Alien");
 		jatin=(Alien)s.get(Alien.class, n);
 		tx.commit();
 		ModelAndView mv=new ModelAndView();
@@ -96,5 +103,47 @@ public class AddController {
 		s.delete(jatin);
 		tx.commit();
 		return "index.jsp";
+	}
+
+	@RequestMapping("/getalldata")
+	public ModelAndView getall(HttpServletRequest request,HttpServletResponse response)
+	{
+		Alien jatin=new Alien();
+		ModelAndView mv=new ModelAndView();
+		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
+		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
+		SessionFactory sf=con.buildSessionFactory(reg);
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		Query q=s.createQuery("from Alien");
+		//Criteria c=s.createCriteria(Alien.class);
+		List list=q.list();
+		//jatin=(Alien)s.createQuery("select * from Alien");
+		Iterator itr=list.iterator();
+//		while(itr.hasNext())
+//		{
+//			jatin=(Alien)itr.next();
+//			mv.addObject("result",jatin.getAemp());
+//			mv.addObject("result1",jatin.getAname());
+//			mv.addObject("result2",jatin.getAlast());
+//			mv.setViewName("display.jsp");
+//		}
+//		for(int i=0;i<=list.size();i++)
+//		{
+//			mv.addObject("result",list.get(i));
+//			mv.setViewName("display.jsp");
+//		}
+		while(itr.hasNext())
+		{
+			jatin=(Alien)itr.next();
+			mv.addObject("result",jatin.getAemp());
+			mv.addObject("result1",jatin.getAname());
+			mv.addObject("result2",jatin.getAlast());
+			mv.setViewName("display.jsp");
+		}
+		tx.commit();
+		
+		return mv;
+		
 	}
 }
