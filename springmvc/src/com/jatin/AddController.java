@@ -3,6 +3,7 @@ package com.jatin;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -63,8 +64,9 @@ public class AddController {
 		jatin=(Alien)s.get(Alien.class, n);
 		tx.commit();
 		ModelAndView mv=new ModelAndView();
-		mv.setViewName("display.jsp");
-		mv.addObject("result",jatin);
+		mv.addObject("result1",jatin);
+		mv.setViewName("displatyall.jsp");
+		
 		return mv;
 	}
 	
@@ -109,17 +111,19 @@ public class AddController {
 	public ModelAndView getall(HttpServletRequest request,HttpServletResponse response)
 	{
 		Alien jatin=new Alien();
+		App app=new App();
 		ModelAndView mv=new ModelAndView();
-		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
+		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class).addAnnotatedClass(App.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf=con.buildSessionFactory(reg);
 		Session s=sf.openSession();
 		Transaction tx=s.beginTransaction();
+		List<Alien> list=new ArrayList<Alien>();
 		Query q=s.createQuery("from Alien");
 		//Criteria c=s.createCriteria(Alien.class);
-		List list=q.list();
+		list=q.list();
 		//jatin=(Alien)s.createQuery("select * from Alien");
-		Iterator itr=list.iterator();
+		//Iterator itr=list.iterator();
 //		while(itr.hasNext())
 //		{
 //			jatin=(Alien)itr.next();
@@ -133,14 +137,27 @@ public class AddController {
 //			mv.addObject("result",list.get(i));
 //			mv.setViewName("display.jsp");
 //		}
-		while(itr.hasNext())
+//		while(itr.hasNext())
+//		{
+//			jatin=(Alien)itr.next();
+////			//app=(App)itr.next();
+//////			System.out.println(jatin.getAemp());
+//////			System.out.println(jatin.getAname());
+////			System.out.println(jatin.getAlast());
+//			mv.addObject("result",jatin.getAemp());
+//			mv.addObject("result1",jatin.getAname());
+//			mv.addObject("result2",jatin.getAlast());
+//			mv.setViewName("display.jsp");
+//		}
+		mv.addObject("result",list);
+		mv.setViewName("display.jsp");
+	/*for(Object obj:list)
 		{
-			jatin=(Alien)itr.next();
-			mv.addObject("result",jatin.getAemp());
-			mv.addObject("result1",jatin.getAname());
-			mv.addObject("result2",jatin.getAlast());
+			System.out.println(obj);
+			
+			mv.addObject("result",obj);
 			mv.setViewName("display.jsp");
-		}
+		}*/
 		tx.commit();
 		
 		return mv;

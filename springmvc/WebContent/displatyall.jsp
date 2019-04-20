@@ -9,27 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<table>
-<c:forEach items="${result}" var="element"> 
-  <tr>
-    <td>${element.aemp}</td>
-    <td>${element.aname}</td>
-    <td>${element.alast}</td>
-    
-  </tr>
-</c:forEach>
-</table>
-
-
- <!--<table border=1>
-	<tr>
-	<th>EMPLOYEE DETAILS</th>
-	</tr>
- 	<tr>
- 	  <th>${result}</th>
- 	
-	</tr>
-</table>-->
+ ${result1}
 </body>
 </html>
