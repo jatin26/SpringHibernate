@@ -9,6 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <c:if test="${result1 eq null}">
+ </c:if>
+ <c:if test="${result1 eq null}">
+ <center>THIS EMP_ID IS NOT AVAILABLE</center>
+ </c:if>
  ${result1}
+
 </body>
 </html>

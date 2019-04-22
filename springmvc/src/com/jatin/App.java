@@ -3,9 +3,12 @@ package com.jatin;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
+
 @Entity
 public class App 
 {
+	
 	@Id
 	private int aemp;
 	private String aname ;

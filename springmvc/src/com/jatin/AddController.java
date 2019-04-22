@@ -1,16 +1,12 @@
 package com.jatin;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
+import java.lang.NumberFormatException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Synchronization;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,6 +15,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jatinhibernate.Alien;
@@ -44,31 +41,29 @@ public class AddController {
 		Transaction tx=s.beginTransaction();
 		s.save(jatin);
 		tx.commit();
-		//		ModelAndView mv=new ModelAndView();
-//		mv.setViewName("display.jsp");
-//		mv.addObject("result", );
+//		ModelAndView mv=new ModelAndView();
+//		mv.addObject("result","value is inserted" );
+//		mv.setViewName("index.jsp");
 		return "index.jsp";
 	}
 	
 	@RequestMapping("/get")
-	public ModelAndView get(HttpServletRequest request,HttpServletResponse response)
+	public ModelAndView get(@RequestParam("x") int n)
 	{
-		int n=Integer.parseInt(request.getParameter("x"));
+		
 		Alien jatin=new Alien();
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf=con.buildSessionFactory(reg);
 		Session s=sf.openSession();
 		Transaction tx=s.beginTransaction();
-		//jatin=(Alien)s.createQuery("select * from Alien");
-		jatin=(Alien)s.get(Alien.class, n);
 		tx.commit();
+		jatin=(Alien)s.get(Alien.class, n);
 		ModelAndView mv=new ModelAndView();
 		mv.addObject("result1",jatin);
 		mv.setViewName("displatyall.jsp");
-		
 		return mv;
-	}
+		}
 	
 	@RequestMapping("/update")
 	public String update(HttpServletRequest request,HttpServletResponse reponse)
@@ -96,6 +91,7 @@ public class AddController {
 	{
 		int n=Integer.parseInt(request.getParameter("x"));
 		Alien jatin=new Alien();
+		try{
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf=con.buildSessionFactory(reg);
@@ -104,6 +100,13 @@ public class AddController {
 		jatin=(Alien)s.get(Alien.class, n);
 		s.delete(jatin);
 		tx.commit();
+		}
+		catch(IllegalArgumentException e)
+		{
+			return "displatyall.jsp";
+		}
+	
+		
 		return "index.jsp";
 	}
 

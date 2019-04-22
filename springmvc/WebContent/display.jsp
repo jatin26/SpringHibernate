@@ -10,16 +10,25 @@
 </head>
 <body>
 
-<table>
+<center><table border="1"> 
+<thead>
+<tr>
+<th scope="col">EMP_ID</th>
+<th scope="col">FIRST_NAME</th>
+<th scope="col">LAST_NAME</th>
+</tr>
+</thead>
+<tbody>
 <c:forEach items="${result}" var="element"> 
   <tr>
-    <td>${element.aemp}</td>
-    <td>${element.aname}</td>
-    <td>${element.alast}</td>
+    <th>${element.aemp}</th>
+    <th>${element.aname}</th>
+    <th>${element.alast}</th>
     
   </tr>
 </c:forEach>
-</table>
+</tbody>
+</table></center>
 
 
  <!--<table border=1>
