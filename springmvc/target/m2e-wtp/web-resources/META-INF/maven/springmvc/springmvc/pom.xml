@@ -30,6 +30,13 @@
     <artifactId>hibernate-core</artifactId>
     <version>4.1.6.Final</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.4.1.Final</version>
+</dependency>
+
 </dependencies>
   <packaging>war</packaging>
   <build>

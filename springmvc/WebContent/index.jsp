@@ -66,7 +66,7 @@ table.custom_class tr.even {
 	background-color: #98dcff;
 }
 </style>
-<body style="background-color: #000000;">
+<body>
 <div>
 
 <table class="custom_class">
@@ -79,10 +79,10 @@ table.custom_class tr.even {
 <th scope="col">INSERT-DATA</th>
 </tr>
 <tr>
-<form action="add">
-<th scope="col"><input type="number" name="t" placeholder="EMP_ID_EX_10206"/></th>
-<th scope="col"><input type="text" name="t1" placeholder="FIRST_NAME" title="please only type ALPHABET"/></th>
-<th scope="col"><input type="text" name="t2" placeholder="LAST_NAME"/ title="please only type ALPHABET"></th>
+<form action="add" method="post">
+<th scope="col"><input type="number" name="aemp" placeholder="EMP_ID_EX_10206"/>${result2}${result3}</th>
+<th scope="col"><input type="text" name="aname" placeholder="FIRST_NAME" title="please only type ALPHABET"/></th>
+<th scope="col"><input type="text" name="alast" placeholder="LAST_NAME"/ title="please only type ALPHABET"></th>
 <th scope="col"><input type="submit" onclick="insert()" class="button-success"/></th>
 </form>
 </tr>
@@ -119,6 +119,7 @@ table.custom_class tr.even {
 <form action="delete">
 <th scope="col"><input type="number" name="x" placeholder="EMP_ID_EX_10206"></th>
 <th scope="col"><input type="submit" value="DELETE" onclick="delete1()" class="button-error"></th>
+
 </form>
 </tr>
 <tr>
@@ -132,5 +133,20 @@ table.custom_class tr.even {
 </thead>
 </table>
 </div>
+<center>${result}</center>
+<center><table border="1">
+<thead>
+<tr>
+<th scope="col">EMP_ID</th>
+<th scope="col">FIRST_NAME</th>
+<th scope="col">LAST_NAME</th>
+</tr>
+<tr>
+<th scope="col">${result1.aemp}</th>
+<th scope="col">${result1.aname}</th>
+<th scope="col">${result1.alast}</>
+</tr>
+</thead>
+</table></center>
 </body>
 </html>
