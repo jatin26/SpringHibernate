@@ -11,6 +11,10 @@
 </head>
 <style type = "text/css">
        
+       body
+       {
+       	background-color:offwhite;
+       }
         .button-tt1{
         	 background: darkwhite; 
          color: black;
@@ -69,6 +73,7 @@ table.custom_class tr.even {
 <body>
 <div>
 
+<h1>${delete2}</h1>
 <table class="custom_class">
 <caption>SPRING-MVC_HIBERNATE_CRUD</caption>
 <thead>
@@ -93,22 +98,22 @@ table.custom_class tr.even {
 <th scope="col">UPDATE-DATA</th>
 </tr>
 <tr>
-<form action="update">
-<th scope="col"><input type="number" name="x" placeholder="EMP_ID_EX_10206"></th>
-<th scope="col"><input type="text" name="x1" placeholder="FIRST_NAME" title="please only type ALPHABET"></th>
-<th scope="col"><input type="text" name="x2" placeholder="LAST_NAME" title="please only type ALPHABET"></th>
-<th scope="col"><input type="submit" value="UPDATE" onclick="update()" class="button-warning pure-button"></th>
+<form action="update" method="post">
+<th scope="col"><input type="number" name="aemp" placeholder="EMP_ID_EX_10206">${updated1}${up}</th>
+<th scope="col"><input type="text" name="aname" placeholder="FIRST_NAME" title="please only type ALPHABET"></th>
+<th scope="col"><input type="text" name="alast" placeholder="LAST_NAME" title="please only type ALPHABET"></th>
+<th scope="col"><input type="submit" value="UPDATE" class="button-warning pure-button"></th>
 </form>
 </tr>
 
 <tr>
 <th scope="col">EMP-ID</th>
-<th scope="col">GET-DATA</th> 
+<th scope="col">FIND-DATA</th> 
 </tr>
 <tr>
-<form action="get">
-<th scope="col"><input type="number" name="x" placeholder="EMP_ID_EX_10206"/></th>
-<th scope="col"><input type="submit" value="GET" class="button-tt1 pure-button">
+<form action="FIND" method="post">
+<th scope="col"><input type="number" name="aemp" placeholder="EMP_ID_EX_10206"/>${find1}${find}</th>
+<th scope="col"><input type="submit" value="FIND" class="button-tt1 pure-button">
 </form>
 </tr>
 <tr>
@@ -116,8 +121,8 @@ table.custom_class tr.even {
 <th scope="col">DELETE-DATA</th>
 </tr>
 <tr>
-<form action="delete">
-<th scope="col"><input type="number" name="x" placeholder="EMP_ID_EX_10206"></th>
+<form action="delete" method="post">
+<th scope="col"><input type="number" name="aemp" placeholder="EMP_ID_EX_10206">${delete}${delete1}</th>
 <th scope="col"><input type="submit" value="DELETE" onclick="delete1()" class="button-error"></th>
 
 </form>
@@ -131,9 +136,11 @@ table.custom_class tr.even {
 </form>
 </tr>
 </thead>
-</table>
+</table bgcolor="#ccccff">
 </div>
-<center>${result}</center>
+<center><h1>${result}</h1></center>
+<center><h1>${findout}</h1></center>
+<center><h1>${insert}</h1></center>
 <center><table border="1">
 <thead>
 <tr>
@@ -144,7 +151,7 @@ table.custom_class tr.even {
 <tr>
 <th scope="col">${result1.aemp}</th>
 <th scope="col">${result1.aname}</th>
-<th scope="col">${result1.alast}</>
+<th scope="col">${result1.alast}</th>
 </tr>
 </thead>
 </table></center>
