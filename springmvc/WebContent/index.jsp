@@ -71,6 +71,7 @@ table.custom_class tr.even {
 }
 </style>
 <body>
+
 <div>
 
 <h1>${delete2}</h1>
@@ -131,17 +132,17 @@ table.custom_class tr.even {
 <th scope="col">GET-ALL-DATA IN TABLE</th>
 </tr>
 <tr>
-<form action="getalldata">
+<form action="getalldata" method="post">
 <th scope="col"><input type="submit" value="ALL-RECORDS" class="button-tt pure-button"/>
 </form>
 </tr>
 </thead>
-</table bgcolor="#ccccff">
+</table>
 </div>
-<center><h1>${result}</h1></center>
+<center><h1>${re}</h1></center>
 <center><h1>${findout}</h1></center>
 <center><h1>${insert}</h1></center>
-<center><table border="1">
+<center><table border="5" bgcolor="#ccccff">
 <thead>
 <tr>
 <th scope="col">EMP_ID</th>
@@ -155,5 +156,6 @@ table.custom_class tr.even {
 </tr>
 </thead>
 </table></center>
+
 </body>
 </html>

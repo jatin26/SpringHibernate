@@ -48,7 +48,7 @@ public class AddController {
 		s.save(jatin);
 		tx.commit();
 		ModelAndView mv=new ModelAndView("index.jsp");
-		mv.addObject("result","DATA IS INSERTED");
+		mv.addObject("re","DATA IS INSERTED");
 		return mv;
 		}
 		catch(Exception e)
@@ -148,11 +148,11 @@ public class AddController {
 		
 	}
 
-	@RequestMapping("/getalldata")
+	@RequestMapping(value="/getalldata",method=RequestMethod.POST )
 	public ModelAndView getall()
 	{
 		Alien jatin=new Alien();
-		ModelAndView mv=new ModelAndView();
+		ModelAndView mv=new ModelAndView("display.jsp");
 		Configuration con=new Configuration().configure().addAnnotatedClass(Alien.class);
 		ServiceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf=con.buildSessionFactory(reg);
@@ -162,7 +162,7 @@ public class AddController {
 		Query q=s.createQuery("from Alien");
 		list=q.list();
 		mv.addObject("result",list);
-		mv.setViewName("display.jsp");
+		
 		tx.commit();
 		return mv;
 		

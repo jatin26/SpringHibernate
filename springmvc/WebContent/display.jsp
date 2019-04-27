@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<center><table border="1"> 
+<center><table border="5" bgcolor="#ccccff"> 
 <thead>
 <tr>
 <th scope="col">EMP_ID</th>
