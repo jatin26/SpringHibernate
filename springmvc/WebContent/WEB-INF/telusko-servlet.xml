@@ -13,4 +13,5 @@
 	
 	<ctx:annotation-config></ctx:annotation-config>
 	<ctx:component-scan base-package="com.jatin"></ctx:component-scan>
+	
 </beans>

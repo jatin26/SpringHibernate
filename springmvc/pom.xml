@@ -36,6 +36,11 @@
     <artifactId>hibernate-validator</artifactId>
     <version>5.4.1.Final</version>
 </dependency>
+<dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>5.2.0</version>
+    </dependency>
 
 </dependencies>
   <packaging>war</packaging>
