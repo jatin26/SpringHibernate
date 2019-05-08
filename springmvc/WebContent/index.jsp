@@ -148,6 +148,7 @@ table.custom_class tr.even {
 				<tr>
 					<th scope="col">GET-ALL-DATA IN TABLE</th>
 					<th scope="col">GET-ALL-DATA IN PDF FORMATE</th>
+					<th scope="col">GET-ALL-DATA IN JASPER JSP FILE</th>
 				</tr>
 				<tr>
 					<form action="getalldata" method="post">
@@ -158,6 +159,7 @@ table.custom_class tr.even {
 						<th scope="col"><input type="submit" value="ALL-RECORDS_PDF"
 							class="button-tt pure-button" />
 					</form>
+					<th><a href="jasper.jsp"><input type="submit" value="jasper.report"></a></th>				
 				</tr>
 			</thead>
 		</table>
