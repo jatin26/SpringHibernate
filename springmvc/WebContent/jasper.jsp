@@ -18,6 +18,7 @@
 <%@ page import= "java.util.*"%>
 <%@ page import= "org.hibernate.Query"%>
 <%@ page import= "org.hibernate.Transaction"%>
+
 <%@ page import= "net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"%>
 <%
    
@@ -38,7 +39,9 @@
 		JRBeanCollectionDataSource ds;
         JasperPrint jp = JasperFillManager.fillReport(jr, param,new JRBeanCollectionDataSource(list));
 		JasperExportManager.exportReportToPdfStream(jp,response.getOutputStream());
-        response.getOutputStream().flush();
+		//JasperExportManager.exportReportToPdfFile(jp, file.getAbsolutePath +"reportName.pdf");
+		 
+		response.getOutputStream().flush();
         response.getOutputStream().close();
         
     }catch(Exception e){
