@@ -31,13 +31,13 @@
 		Query q = s.createQuery("from Alien");
 		list = q.list();
 		tx.commit();
-    	String jrxmlFile = session.getServletContext().getRealPath("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
-        InputStream input = new FileInputStream(new File(jrxmlFile));
-        JasperReport jr = JasperCompileManager.compileReport(input);
-        Map<String, Object> param = new HashMap<String, Object>();
+		JasperReport jr = JasperCompileManager
+				.compileReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
+
+		Map<String, Object> param = new HashMap<String, Object>();
 		JRBeanCollectionDataSource ds;
         JasperPrint jp = JasperFillManager.fillReport(jr, param,new JRBeanCollectionDataSource(list));
-        JasperExportManager.exportReportToPdfStream(jp,response.getOutputStream());
+		JasperExportManager.exportReportToPdfStream(jp,response.getOutputStream());
         response.getOutputStream().flush();
         response.getOutputStream().close();
         
