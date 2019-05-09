@@ -6,9 +6,6 @@
 <%@ page import="java.io.FileInputStream"%>
 <%@ page import="java.io.FileNotFoundException"%>
 <%@ page import="java.io.InputStream"%>
-<%@ page import="java.sql.Connection"%>
-<%@ page import="java.sql.DriverManager"%>
-<%@ page import="java.sql.SQLException"%>
 <%@ page import= "org.hibernate.cfg.Configuration"%>
 <%@ page import= "com.jatinhibernate.Alien"%>
 <%@ page import= "org.hibernate.service.ServiceRegistry"%>
@@ -33,14 +30,16 @@
 		list = q.list();
 		tx.commit();
 		JasperReport jr = JasperCompileManager
-				.compileReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
+				.compileReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml"); 
 
+		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(list);
 		Map<String, Object> param = new HashMap<String, Object>();
-		JRBeanCollectionDataSource ds;
-        JasperPrint jp = JasperFillManager.fillReport(jr, param,new JRBeanCollectionDataSource(list));
-		JasperExportManager.exportReportToPdfStream(jp,response.getOutputStream());
-		//JasperExportManager.exportReportToPdfFile(jp, file.getAbsolutePath +"reportName.pdf");
-		 
+		param.put("itemDataSource", ds);
+		JasperPrint jsp = JasperFillManager.fillReport(jr, param,ds);
+		//JasperPrint jp = JasperFillManager.fillReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jasper",param,ds);
+        //JasperPrint jp = JasperFillManager.fillReport(jr, param,ds);
+		JasperExportManager.exportReportToPdfStream(jsp,response.getOutputStream());
+		
 		response.getOutputStream().flush();
         response.getOutputStream().close();
         

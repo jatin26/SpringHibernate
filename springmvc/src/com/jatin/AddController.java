@@ -1,17 +1,11 @@
 package com.jatin;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.lang.NumberFormatException;
-import java.sql.SQLException;
-
-
-import javax.validation.Valid;
 
 //import org.exolab.castor.dsml.Exporter;
 import org.hibernate.Query;
@@ -23,33 +17,19 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jatinhibernate.Alien;
-import com.mysql.jdbc.Connection;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 public class AddController {
@@ -182,7 +162,7 @@ public class AddController {
 
 	}
 
-	@RequestMapping(value = "/getalldataPDF", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/getalldataPDF", method = RequestMethod.POST)
 	public ModelAndView main() throws JRException, IOException {
 		Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
 		ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
@@ -193,45 +173,76 @@ public class AddController {
 		Query q = s.createQuery("from Alien");
 		list = q.list();
 		tx.commit();
-		JasperReport jsr = JasperCompileManager
-				.compileReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
-
+		JasperReport jsr = JasperCompileManager.compileReport(
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
 		Map<String, Object> param = new HashMap<String, Object>();
 		JRBeanCollectionDataSource ds;
 		JasperPrint jsp = JasperFillManager.fillReport(jsr, param, new JRBeanCollectionDataSource(list));
-		
-		//JasperExportManager.exportReportToHtmlFile(jsp, "//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.html");	
-		JasperExportManager.exportReportToPdfFile(jsp, "//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
-		
-		System.out.println("done");
+		JasperExportManager.exportReportToPdfFile(jsp,
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
 		ModelAndView mv = new ModelAndView("index.jsp");
-		mv.addObject("jasper", "JASPER REPORT IS CREATED KINDLY CHECK IN YOUR DIRECTORY");
+		mv.addObject("jasper", "PDF IS DOWNLOAD KINDLY CHECK YOUR DIRECTORY");
+		return mv;
+	}
+*/
+	@RequestMapping(value = "/getalldataPDF", method = RequestMethod.POST)
+	public ModelAndView main() throws JRException{
+		Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
+		ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
+		SessionFactory sf = con.buildSessionFactory(reg);
+		Session s = sf.openSession();
+		Transaction tx = s.beginTransaction();
+		List<Alien> list = new ArrayList<Alien>();
+		Query q = s.createQuery("from Alien");
+		list = q.list();
+  		tx.commit();
+ 
+		//JasperReport jsr = JasperCompileManager.compileReport(
+			//	"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
+		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(list);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("itemDataSource", ds);
+		JasperPrint jsp = JasperFillManager.fillReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//com//jasper//jaspertablejrxml.jasper", param,ds);
+		JasperExportManager.exportReportToPdfFile(jsp,
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
+		ModelAndView mv = new ModelAndView("index.jsp");
+		mv.addObject("jasper", "PDF IS DOWNLOAD KINDLY CHECK YOUR DIRECTORY");
 		return mv;
 	}
 
-	/*public static void jasperReport()
+	/*@RequestMapping(value = "/getalldataPDF", method = RequestMethod.POST)
+	public ModelAndView main() throws java.io.IOException{
+		
+	try
 	{
-		Scanner s=new Scanner(System.in);
-		String sourceFile="//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src";
-		Alien alien=new Alien();
+		Alien a=new Alien();
+		a.setAemp(101);
+		a.setAname("jatin");
+		a.setAlast("mehta");
+		Alien a2=new Alien();
+		a2.setAemp(102);
+		a2.setAname("richa");
+		a2.setAlast("dutta");
+		List<Alien> listItems=new ArrayList<Alien>();
+		listItems.add(a);
+		listItems.add(a2);
+		JRBeanCollectionDataSource itemsJRBean=new JRBeanCollectionDataSource(listItems);
+		Map<String,Object> param=new HashMap<String,Object>();
+		param.put("itemDataSource", itemsJRBean);
+		JasperPrint jasperPrint=JasperFillManager.fillReport("//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//com//jasper//jaspertablejrxml.jasper", param,itemsJRBean);
+		JasperExportManager.exportReportToPdfFile(jasperPrint,
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
 		
-		alien.setAemp(102);
+		
+	}	
 	
-		alien.setAname("JATIN");
-		
-		alien.setAlast("MEHTA");
-		ArrayList datalist= new ArrayList () ;
-		datalist.add(alien);
-		JRBeanCollectionDataSource beancolds=new JRBeanCollectionDataSource(datalist);
-		Map parameter=new HashMap();
-		try
-		{
-			JasperFillManager.fillReportToFile(sourceFile, parameter,beancolds);
-		}
-		catch(JRException e)
-		{
-			e.printStackTrace();
-		}
-	}*/
-
+	catch(JRException ex)
+	{
+		ex.printStackTrace();
+	}
+	ModelAndView mv = new ModelAndView("index.jsp");
+	mv.addObject("jasper", "PDF IS DOWNLOAD KINDLY CHECK YOUR DIRECTORY");
+	return mv;
+	}
+*/
 }
