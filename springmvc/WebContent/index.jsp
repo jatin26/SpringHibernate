@@ -78,7 +78,8 @@ table.custom_class tr.even {
 <body>
 
 	<div>
-
+		<h1>${delete3}</h1>
+		<h1>${delete4}</h1>
 		<h1>${delete2}</h1>
 		<h1>${jasper}</h1>
 		<table class="custom_class">
@@ -122,8 +123,8 @@ table.custom_class tr.even {
 				</tr>
 				<tr>
 					<th scope="col">GET-ALL-DATA IN TABLE</th>
-					<th scope="col">DOWNLOAD-JASPER-REPORT</th>
-					<th scope="col">VIEW-JASPER-REPORT</th>
+					<th scope="col">DOWNLOAD & VIEW-JASPER-REPORT</th>
+					
 				</tr>
 				<tr>
 					<form action="getalldata" method="post">
@@ -134,7 +135,7 @@ table.custom_class tr.even {
 						<th scope="col"><input type="submit" value="DOWNLOAD"
 							class="button-tt pure-button" />
 					</form>
-					<th><a href="jasper.jsp"><input type="submit" value="REPORT" class="button-tt pure-button"></a></th>				
+					
 				</tr>
 				<tr>
 					<th scope="col">EMP-ID</th>

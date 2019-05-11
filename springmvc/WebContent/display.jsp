@@ -29,6 +29,25 @@
 </c:forEach>
 </tbody>
 </table></center>
+<center><table border="5" bgcolor="#ccccff"> 
+<thead>
+<tr>
+<th scope="col">EMP_ID</th>
+<th scope="col">FIRST_NAME</th>
+<th scope="col">LAST_NAME</th>
+</tr>
+</thead>
+<tbody>
+<c:forEach items="${query}" var="element2"> 
+  <tr>
+    <th>${element2.aemp}</th>
+    <th>${element2.aname}</th>
+    <th>${element2.alast}</th>
+    
+  </tr>
+</c:forEach>
+</tbody>
+</table></center>
 
 
  <!--<table border=1>
