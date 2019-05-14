@@ -200,33 +200,6 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 7_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 7_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 7_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
 	<subDataset name="layout" uuid="b244845d-9fcf-40b9-b066-b3599ab3bc0e">
 		<queryString>
 			<![CDATA[]]>
@@ -1136,49 +1109,6 @@
 								<reportElement x="0" y="0" width="73" height="30" uuid="caebb03e-c3fc-4a2b-8a7d-90742019536c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{alast}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<componentElement>
-				<reportElement x="2440" y="160" width="120" height="60" uuid="9472e8d6-488e-403b-bf88-fc784c1a5dd8">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 7_TH"/>
-					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 7_CH"/>
-					<property name="com.jaspersoft.studio.table.style.detail" value="Table 7_TD"/>
-				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="layout8" uuid="e1462224-07e3-42e1-8a16-4b379ea3e6de">
-						<dataSourceExpression><![CDATA[$P{itemDataSource8}]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="40" uuid="8617805b-4c26-49d5-97eb-085e36b1a826">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="Table 7_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="Table 7_TD" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="40" height="30" uuid="c90983ed-5112-489f-9c93-8ddeeb53c5fc"/>
-								<textFieldExpression><![CDATA[$F{aemp}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="40" uuid="9e419115-d1cd-4ea9-995f-6e7d55e53f68">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader style="Table 7_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="Table 7_TD" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="40" height="30" uuid="1221bda8-2efe-49a9-b790-127607a5feb9"/>
-								<textFieldExpression><![CDATA[$F{alast}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="40" uuid="efb130c5-c219-40f3-9a91-795661fb6e5b">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="Table 7_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="Table 7_TD" height="30">
-							<textField>
-								<reportElement x="0" y="0" width="40" height="30" uuid="71ced865-adf9-4831-8b25-b83a6b6e1c34"/>
-								<textFieldExpression><![CDATA[$F{aname}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
