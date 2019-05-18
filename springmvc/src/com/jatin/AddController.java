@@ -46,14 +46,12 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 
-
-
 @Controller
-public class AddController{
-	
+public class AddController {
+
 	@Autowired
 	private jatinService service;
-	
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView add(@ModelAttribute("result1") Alien jatin, BindingResult errors) {
 		if (errors.hasErrors()) {
@@ -119,17 +117,7 @@ public class AddController{
 			return mm2;
 		}
 		try {
-			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
-			ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties())
-					.buildServiceRegistry();
-			SessionFactory sf = con.buildSessionFactory(reg);
-			Session s = sf.openSession();
-			Transaction tx = s.beginTransaction();
-			jatin = (Alien) s.get(Alien.class, jatin.getAemp());
-			jatin.setAname(name);
-			jatin.setAlast(last);
-			s.update(jatin);
-			tx.commit();
+			service.updateData(jatin, name, last);
 		}
 
 		catch (NullPointerException e) {
@@ -183,28 +171,13 @@ public class AddController{
 	}
 
 	@RequestMapping(value = "/getalldata", method = RequestMethod.POST)
-	public ModelAndView getall() {
+	public ModelAndView getall(Alien jatin) {
 		try {
-			//Alien jatin = new Alien();
-			App a = new App();
 			ModelAndView mv = new ModelAndView("display.jsp");
-			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(App.class);
-					
-			ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties())
-					.buildServiceRegistry();
-			SessionFactory sf = con.buildSessionFactory(reg);
-			Session s = sf.openSession();
-			Transaction tx = s.beginTransaction();
-			List<App> list2 = new ArrayList<App>();
-			Query q1 = s.createQuery("from App");
-			list2 = q1.list();
-			/*List<Alien> list = new ArrayList<Alien>();
-			Query q = s.createQuery("from Alien");
-			list = q.list();*/
-			//mv.addObject("result", list);
-			mv.addObject("query", list2);
-			tx.commit();
+			mv.addObject("result", service.getAllData(jatin));
+
 			return mv;
+
 		} catch (HibernateException he) {
 			ModelAndView mv3 = new ModelAndView("index.jsp");
 			mv3.addObject("delete3", "*INTERNATE_IS_NOT_WORKING*");
@@ -244,10 +217,8 @@ public class AddController{
 		List<Table_4> list7 = new ArrayList<Table_4>();
 		Query q6 = s.createQuery("from Table_4");
 		list7 = q6.list();
-		
-		
-	
-			JasperReport jsr = JasperCompileManager.compileReport(
+
+		JasperReport jsr = JasperCompileManager.compileReport(
 				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jasper.jrxml");
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(list);
 		JRBeanCollectionDataSource ds2 = new JRBeanCollectionDataSource(list2);
@@ -264,29 +235,26 @@ public class AddController{
 		param.put("itemDataSource5", ds5);
 		param.put("itemDataSource6", ds6);
 		param.put("itemDataSource7", ds7);
-		
-		
+
 		JasperPrint jsp = JasperFillManager.fillReport(jsr, param, new JREmptyDataSource());
-		
-		  /*JasperViewer jasperViewer = new JasperViewer(jsp);
-          jasperViewer.viewReport(jsp,false);*/
-         
-          JasperExportManager.exportReportToPdfFile(jsp,
-  				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
-          
-          
-		  JRXlsxExporter xlsx=new JRXlsxExporter();
-		  xlsx.setParameter(JRXlsExporterParameter.JASPER_PRINT, jsp);
-		  xlsx.setParameter(JRXlsExporterParameter.
-		  OUTPUT_FILE_NAME,"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.xlsx"
-		  ); xlsx.exportReport();
-		 
-		
-		
+
+		/*
+		 * JasperViewer jasperViewer = new JasperViewer(jsp);
+		 * jasperViewer.viewReport(jsp,false);
+		 */
+
+		JasperExportManager.exportReportToPdfFile(jsp,
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
+
+		JRXlsxExporter xlsx = new JRXlsxExporter();
+		xlsx.setParameter(JRXlsExporterParameter.JASPER_PRINT, jsp);
+		xlsx.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,
+				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.xlsx");
+		xlsx.exportReport();
+
 		ModelAndView mv = new ModelAndView("index.jsp");
 		mv.addObject("jasper", "PDF IS DOWNLOAD KINDLY CHECK YOUR DIRECTORY");
 		return mv;
 	}
 
-	
 }

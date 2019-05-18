@@ -1,5 +1,7 @@
 package com.jatin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,19 @@ public class jatinServiceImpl  implements jatinService {
 		
 		 jatindao.add(jatin);
 	}
+
+	@Override
+	public void updateData(Alien jatin, String name, String last) {
+		jatindao.update(jatin, name, last);
+		
+	}
+
+	@Override
+	public List<Alien> getAllData(Alien jatin) {
+		
+		return this.jatindao.getAllData(jatin);
+	}
+
+	
 
 }
