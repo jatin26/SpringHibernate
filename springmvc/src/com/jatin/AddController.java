@@ -1,11 +1,12 @@
 package com.jatin;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServlet;
 
 import org.hibernate.HibernateException;
 //import org.exolab.castor.dsml.Exporter;
@@ -17,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,19 +29,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jatinhibernate.Alien;
 import com.jatinhibernate.App;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.jatinhibernate.Table_1;
 import com.jatinhibernate.Table_2;
 import com.jatinhibernate.Table_3;
 import com.jatinhibernate.Table_4;
-
 import com.jatinhibernate.app;
-import com.mysql.fabric.Response;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -48,32 +42,27 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.view.JasperViewer;
+
+
 
 @Controller
-public class AddController extends HttpServlet {
-
+public class AddController{
+	
+	@Autowired
+	private jatinService service;
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("result1") App jatin, BindingResult errors) {
+	public ModelAndView add(@ModelAttribute("result1") Alien jatin, BindingResult errors) {
 		if (errors.hasErrors()) {
 			ModelAndView mv1 = new ModelAndView("index.jsp");
 			mv1.addObject("result2", "*EMP_ID SHOULD NOT BE EMPTY*");
 			return mv1;
 		}
 		try {
-			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(App.class);
-			ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties())
-					.buildServiceRegistry();
-			SessionFactory sf = con.buildSessionFactory(reg);
-			Session s = sf.openSession();
-			Transaction tx = s.beginTransaction();
-			s.save(jatin);
-			tx.commit();
+			service.addData(jatin);
 			ModelAndView mv = new ModelAndView("index.jsp");
 			mv.addObject("re", "DATA IS INSERTED");
 			return mv;
@@ -161,20 +150,20 @@ public class AddController extends HttpServlet {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ModelAndView delete(@ModelAttribute("jatin") App jatin, BindingResult errors) {
+	public ModelAndView delete(@ModelAttribute("jatin") Alien jatin, BindingResult errors) {
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("index.jsp");
 			mv.addObject("delete", "*EMP_ID SHOULD NOT BE EMPTY*");
 			return mv;
 		}
 		try {
-			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(App.class);
+			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
 			ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties())
 					.buildServiceRegistry();
 			SessionFactory sf = con.buildSessionFactory(reg);
 			Session s = sf.openSession();
 			Transaction tx = s.beginTransaction();
-			jatin = (App) s.get(App.class, jatin.getAemp());
+			jatin = (Alien) s.get(Alien.class, jatin.getAemp());
 			s.delete(jatin);
 			tx.commit();
 			ModelAndView mv1 = new ModelAndView("index.jsp");
@@ -196,11 +185,11 @@ public class AddController extends HttpServlet {
 	@RequestMapping(value = "/getalldata", method = RequestMethod.POST)
 	public ModelAndView getall() {
 		try {
-			Alien jatin = new Alien();
+			//Alien jatin = new Alien();
 			App a = new App();
 			ModelAndView mv = new ModelAndView("display.jsp");
-			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class)
-					.addAnnotatedClass(App.class);
+			Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(App.class);
+					
 			ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties())
 					.buildServiceRegistry();
 			SessionFactory sf = con.buildSessionFactory(reg);
@@ -209,10 +198,10 @@ public class AddController extends HttpServlet {
 			List<App> list2 = new ArrayList<App>();
 			Query q1 = s.createQuery("from App");
 			list2 = q1.list();
-			List<Alien> list = new ArrayList<Alien>();
+			/*List<Alien> list = new ArrayList<Alien>();
 			Query q = s.createQuery("from Alien");
-			list = q.list();
-			mv.addObject("result", list);
+			list = q.list();*/
+			//mv.addObject("result", list);
 			mv.addObject("query", list2);
 			tx.commit();
 			return mv;
@@ -279,18 +268,19 @@ public class AddController extends HttpServlet {
 		
 		JasperPrint jsp = JasperFillManager.fillReport(jsr, param, new JREmptyDataSource());
 		
-		  JasperViewer jasperViewer = new JasperViewer(jsp);
-          jasperViewer.viewReport(jsp,false);
+		  /*JasperViewer jasperViewer = new JasperViewer(jsp);
+          jasperViewer.viewReport(jsp,false);*/
          
           JasperExportManager.exportReportToPdfFile(jsp,
   				"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.pdf");
           
-		  /*JRXlsxExporter xlsx=new JRXlsxExporter();
+          
+		  JRXlsxExporter xlsx=new JRXlsxExporter();
 		  xlsx.setParameter(JRXlsExporterParameter.JASPER_PRINT, jsp);
 		  xlsx.setParameter(JRXlsExporterParameter.
 		  OUTPUT_FILE_NAME,"//home//jatin//Documents//06 march springhibernate//SpringHibernate//springmvc//src//jatin.xlsx"
 		  ); xlsx.exportReport();
-		 */
+		 
 		
 		
 		ModelAndView mv = new ModelAndView("index.jsp");
